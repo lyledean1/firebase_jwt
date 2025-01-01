@@ -1,6 +1,6 @@
 [package]
 name = "firebase_jwt"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "A library to help parse JWT tokens from Firebase in Rust"
 readme = "./README.md"
