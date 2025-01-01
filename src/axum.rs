@@ -6,37 +6,16 @@ use axum::{
     response::Response,
     body::Body,
 };
-use jsonwebtoken::{decode, Algorithm, DecodingKey, Validation};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::fs;
-use tokio;
 use crate::FirebaseTokenVerifier;
-
-#[derive(Debug)]
-struct AppError(anyhow::Error);
-
 #[derive(Clone)]
 pub struct AppState {
-    pub jwt_decoding_key: DecodingKey,
     pub google_project_id: String,
 }
 
-#[derive(Debug, Deserialize)]
-struct GoogleCredentials {
-    private_key: String,
-    client_email: String,
-}
-
 impl AppState {
-    pub fn from_google_credentials(google_project_id: String, creds_path: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        let creds_file = fs::read_to_string(creds_path)?;
-        let creds: Value = serde_json::from_str(&creds_file)?;
-        let private_key = creds["private_key"]
-            .as_str()
-            .ok_or("private_key not found")?;
-        let jwt_decoding_key = DecodingKey::from_rsa_pem(private_key.as_bytes())?;
-        Ok(Self { google_project_id, jwt_decoding_key })
+    pub fn new(google_project_id: String,) -> Result<Self, Box<dyn std::error::Error>> {
+        Ok(Self { google_project_id })
     }
 }
 
@@ -72,6 +51,7 @@ pub async fn axum_auth_middleware(
     Ok(next.run(request).await)
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct AuthClaims(Claims);
 
