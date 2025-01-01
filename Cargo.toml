@@ -2,6 +2,12 @@
 name = "firebase_jwt"
 version = "0.1.0"
 edition = "2021"
+description = "A library to help parse JWT tokens from Firebase in Rust"
+readme = "./README.md"
+keywords = ["firebase", "jwt", "cryptography", "http", "google"]
+license = "Apache-2.0/MIT"
+repository = "https://github.com/lyledean1/firebase_jwt"
+categories = ["cryptography"]
 
 [dependencies]
 serde = { version = "1.0.217", features = ["derive"] }
