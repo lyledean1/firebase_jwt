@@ -1,4 +1,4 @@
-mod axum;
+pub mod axum;
 
 use jsonwebtoken::{decode, decode_header, DecodingKey, Validation, Algorithm};
 use serde::{Deserialize, Serialize};
